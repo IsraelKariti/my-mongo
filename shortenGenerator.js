@@ -1,19 +1,20 @@
 
-const linkPairs = {
-    "/goog": "https://www.google.co.il/",
-    "/face": "https://www.facebook.com/"
-}
+// const linkPairs = {
+//     "/goog": "https://www.google.co.il/",
+//     "/face": "https://www.facebook.com/"
+// }
 
 module.exports = function createUniqueRandomShortUrl(){
     // keep creating url untill unique found
-    for(;;){
+    //for(;;){
         var randUrl = createRandomShortUrl();
         // check if the url doesn't already exist
-        if(Object.keys(linkPairs).indexOf(randUrl) == -1){
-            randUrl = '/'+randUrl;
-            return randUrl;
-        }
-    }
+        // if(Object.keys(linkPairs).indexOf(randUrl) == -1){
+        //     randUrl = 'http://localhost:3000/'+randUrl;
+        //     return randUrl;
+        // }
+    //}
+    return 'http://localhost:3000/'+randUrl;
 }
 
 // create a random string of 7 alphanumeric

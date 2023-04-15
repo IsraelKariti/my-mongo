@@ -3,6 +3,9 @@ require('dotenv').config()
 const express = require('express')
 const app = express()  
 
+const cors = require("cors");
+app.use(cors());
+
 const generateShortened = require('./shortenGenerator')
 
 const mongoose = require('mongoose')
@@ -16,19 +19,41 @@ app.use(express.json())
 app.listen(3000, ()=>console.log('server started'))
 
 app.get(/^(.+)/, (req, res)=> {
-    // this method should only run for requests there are of the format '/AgQ2v9E'
-    // url that start with '/' only come from the browser and needs a redirect to real url
-    if(req.url.substring(0,1) != '/')
-        return
-    
-    var shorturl = req.url.substring(1)
+    var shorturl = 'http://localhost:3000'+req.url;
 
-    db.collection("shortens")
+    db.collection('shortens')
     .findOne({short: shorturl}, function(err, result){
-        if (err) throw err;
+        if (err){
+            console.log('problem: '+err)
+            throw err;
+        } 
+        console.log('result.long: '+result.long)
         res.redirect(result.long)
     })
     .catch(()=>{// if findOne didn't find
         res.status(500).json({error: 'errrrr'})
+    })
+})
+
+app.post(/^(.+)/, (req, res)=> {
+
+    console.log('req.url: '+ req.url)
+    // generate shortened url
+    var shorturl = generateShortened()
+
+    // dicard the preceding '/'
+    var longurl = req.url.substring(1)
+
+    // add https if missing
+    if(!longurl.includes('https'))
+        longurl = 'https://'+longurl
+
+    db.collection("shortens")
+    .insertOne({short: shorturl, long: longurl})
+    .then((result)=>{
+        res.status(201).json({short: shorturl})
+    })
+    .catch(()=>{// if findOne didn't find
+        res.status(500).json({error: 'couldnt create new document'})
     })
 })
