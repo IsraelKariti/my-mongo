@@ -16,40 +16,39 @@ db.on('error', (error)=>console.error(error));
 db.once('open', ()=>console.log('connected to db'));
 
 app.use(express.json()); // make express parse json
+app.use(express.urlencoded({extended: true}))
 app.listen(3000, ()=>console.log('server started'));
 
 app.get('/:id', (req, res)=> {
 
-    let shorturl = req.params.id;
+    const id = req.params.id;
 
     db.collection('urls')
-        .findOne({short: shorturl}, function(err, result){
+        .findOne({nanoid: id}, function(err, result){
             if (err) throw err;
 
             let redirectUrl = 'https://' + result.long;
             res.redirect(redirectUrl);
         })
         .catch(()=>{// if findOne didn't find
-            res.status(500).json({error: 'id '+shorturl+' could not be found'})
+            res.status(404).json({error: 'id '+id+' could not be found'})
         });
 })
 
 app.post('/create', (req, res)=> {
-    console.log('body: '+ req.body)
-    const url = req.body.nunu;// get the long url from the body
 
-    // dicard the preceding '/'
-    let longurl = req.url.substring(1);
-    
+    let url = req.body.url;// get the long url from the body
     // discard https if exist
-    if(longurl.includes('https://'))
-        longurl = longurl.substring(8);
+    if(url.includes('https://'))
+        url = url.substring(8);
+    if(url.includes('http://'))
+        url = url.substring(7);
 
     // generate shortened url - 7 alphanumerics
     let shorturl = customNanoid();
 
     db.collection("urls")
-        .insertOne({nanoid: shorturl, long: longurl})
+        .insertOne({nanoid: shorturl, long: url})
         .then((result)=>{
             shorturl = 'localhost:3000/' + shorturl 
             res.status(200).json({short: shorturl})
