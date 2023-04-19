@@ -56,6 +56,6 @@ app.post('/create', (req, res)=> {
         });
 })
 
-app.post('/', (req, res)=> {
+app.get('/', (req, res)=> {
     res.send("Welcome humans");
 });
