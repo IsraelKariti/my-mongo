@@ -10,7 +10,8 @@ app.use(cors()); // fix bug "Acess to fetch has been block by CORS policy sponse
 const customNanoid = nanoid.customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 7); 
 
 // create connection to db
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true}); 
+let uri = 'mongodb+srv://israelkariti:dbBD7aTTxFdR2kdb@cluster0.b6lcjql.mongodb.net/test'
+mongoose.connect(uri); 
 const db = mongoose.connection;
 db.on('error', (error)=>console.error(error));
 db.once('open', ()=>console.log('connected to db'));
