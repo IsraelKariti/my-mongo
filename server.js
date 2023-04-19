@@ -17,7 +17,10 @@ db.once('open', ()=>console.log('connected to db'));
 
 app.use(express.json()); // make express parse json
 app.use(express.urlencoded({extended: true}))
-app.listen(3000, ()=>console.log('server started'));
+
+// listen to port decided by environment variable or default to 3000 if local
+const port = process.env.port || 3000;
+app.listen(port, ()=>console.log('server started'));
 
 app.get('/:id', (req, res)=> {
 
