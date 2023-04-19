@@ -50,7 +50,7 @@ app.post('/create', (req, res)=> {
     db.collection("urls")
         .insertOne({nanoid: shorturl, long: url})
         .then((result)=>{
-            shorturl = 'localhost:3000/' + shorturl 
+            //shorturl = 'localhost:3000/' + shorturl 
             res.status(200).json({short: shorturl})
         })
         .catch(()=>{
