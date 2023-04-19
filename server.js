@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');  
 const cors = require("cors");
 const nanoid  = require('nanoid'); // nanoid instead of uuid because it uses capital letters like bit.ly 
