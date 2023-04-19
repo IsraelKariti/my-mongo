@@ -38,11 +38,6 @@ app.get('/:id', (req, res)=> {
 app.post('/create', (req, res)=> {
 
     let url = req.body.url;// get the long url from the body
-    // discard https if exist
-    if(url.includes('https://'))
-        url = url.substring(8);
-    if(url.includes('http://'))
-        url = url.substring(7);
 
     // generate shortened url - 7 alphanumerics
     let shorturl = customNanoid();
