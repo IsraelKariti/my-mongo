@@ -9,7 +9,7 @@ app.use(cors()); // fix bug "Acess to fetch has been block by CORS policy sponse
 const customNanoid = nanoid.customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 7); 
 
 // create connection to db
-let uri = 'mongodb+srv://israelkariti:dbBD7aTTxFdR2kdb@cluster0.b6lcjql.mongodb.net/test'
+let uri = 'mongodb+srv://israelkariti:dbBD7aTTxFdR2kdb@cluster0.b6lcjql.mongodb.net/shortener'
 mongoose.connect(uri); 
 const db = mongoose.connection;
 db.on('error', (error)=>console.error(error));
@@ -43,6 +43,7 @@ app.post('/create', (req, res)=> {
     let url = req.body.url;// get the long url from the body
 
     // generate shortened url - 7 alphanumerics
+    // collision probability for rate of 1K/hr is 1% after 2 weeks (rare enough for this project)
     let shorturl = customNanoid();
 
     db.collection("urls")
