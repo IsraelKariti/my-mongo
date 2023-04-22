@@ -34,7 +34,7 @@ app.get('/:id', (req, res) => {
     .findOne({ nanoid: id }, (err, result) => {
       if (err) throw err;
 
-      const redirectUrl = `https://${result.long}`;
+      const redirectUrl = result.long;
       res.redirect(redirectUrl);
     })
     .catch(() => { // if findOne didn't find
