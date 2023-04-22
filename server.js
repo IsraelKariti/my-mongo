@@ -54,7 +54,3 @@ app.post('/create', (req, res) => {
       res.status(500).json({ error: 'couldnt create new document' });
     });
 });
-
-app.get('/', (req, res) => {
-  res.send('Welcome humans');
-});
