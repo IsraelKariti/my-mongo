@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // create connection to db
-const uri = `mongodb+srv://${process.env.MONGO}.mongodb.net/shortener`;
+const uri = process.env.MONGO;
 
 const connection = new Promise((resolve, reject) => {
   mongoose.connect(uri);
