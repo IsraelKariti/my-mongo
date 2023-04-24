@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const urlRoute = require('./routes/urlsRouter');
 
+console.log('AYOOOOOO 1');
+
 const app = express(); // create the api level
 app.use(cors()); // fix bug "Acess to fetch has been block by CORS policy sponse to preflight re..."
 

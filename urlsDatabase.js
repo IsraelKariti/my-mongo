@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+console.log('AYOOOOOO 4');
+
 // create connection to db
 const uri = 'mongodb+srv://israelkariti:dbBD7aTTxFdR2kdb@cluster0.b6lcjql.mongodb.net/shortener';
 mongoose.connect(uri);

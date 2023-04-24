@@ -1,5 +1,9 @@
+console.log('AYOOOOOO 3 START');
+
 const nanoid = require('nanoid'); // nanoid instead of uuid because it uses capital letters like bit.ly
 const db = require('../urlsDatabase');
+
+console.log('AYOOOOOO 3 END');
 
 const customNanoid = nanoid.customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 7);
 
@@ -28,7 +32,7 @@ module.exports = {
 
     // internal validation of url to avoid overflowing the db
     if (!isUrlValid(url)) {
-      res.status(500).json({ error: 'Invalid url request' });
+      res.status(400).json({ error: 'Invalid url request' });
       return;
     }
 
