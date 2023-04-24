@@ -1,9 +1,5 @@
-console.log('AYOOOOOO 3 START');
-
 const nanoid = require('nanoid'); // nanoid instead of uuid because it uses capital letters like bit.ly
-const db = require('../urlsDatabase');
-
-console.log('AYOOOOOO 3 END');
+const connection = require('../urlsDatabase');
 
 const generateId = nanoid.customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 7);
 
@@ -11,6 +7,17 @@ function isUrlValid(url) {
   const regEx = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
   return !!url.match(regEx);
 }
+
+let db;
+
+connection
+  .then((connectedDb) => {
+    // do stuff with db
+    db = connectedDb;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 module.exports = {
   get: (req, res) => {
