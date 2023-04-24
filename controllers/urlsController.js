@@ -13,10 +13,13 @@ let db;
 connection
   .then((connectedDb) => {
     // do stuff with db
+    console.log('YAYYYYYYYYY');
     db = connectedDb;
   })
   .catch((error) => {
+    console.log('BOOOOOOOO 1');
     console.error(error);
+    console.log('BOOOOOOOO 2');
   });
 
 module.exports = {
