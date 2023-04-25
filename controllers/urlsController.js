@@ -12,20 +12,11 @@ let db;
 
 connection
   .then((connectedDb) => {
-    // do stuff with db
-    console.log('YAYYYYYYYYY');
     db = connectedDb;
   })
   .catch((error) => {
-    console.log('BOOOOOOOO 1');
     console.error(error);
-    console.log('BOOOOOOOO 2');
-  })
-  .catch((error) => {
-    console.log('FUCKKKKKKKKKKK');
-  })
-  ;
-console.log('NO WAYYYYYYYYYYYY'); 
+  });
 
 module.exports = {
   get: (req, res) => {
@@ -35,7 +26,10 @@ module.exports = {
       .findOne({ nanoid: id }, (err, result) => {
         if (err) throw err;
 
-        const redirectUrl = result.long;
+        let redirectUrl = result.long;
+        // add leading http to url if missing
+        if (redirectUrl.substring(0, 4) !== 'http') { redirectUrl = `http://${redirectUrl}`; }
+
         res.redirect(redirectUrl);
       })
       .catch(() => { // if findOne didn't find
