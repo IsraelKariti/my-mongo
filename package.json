@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "experimental": "nodemon tryCtrl.js"
   },
   "author": "",
   "license": "ISC",

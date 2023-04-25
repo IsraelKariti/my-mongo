@@ -20,7 +20,12 @@ connection
     console.log('BOOOOOOOO 1');
     console.error(error);
     console.log('BOOOOOOOO 2');
-  });
+  })
+  .catch((error) => {
+    console.log('FUCKKKKKKKKKKK');
+  })
+  ;
+console.log('NO WAYYYYYYYYYYYY'); 
 
 module.exports = {
   get: (req, res) => {
