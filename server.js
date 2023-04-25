@@ -4,7 +4,7 @@ const urlRoute = require('./routes/urlsRouter');
 
 const app = express(); // create the api level
 app.use(cors({
-  origin: '*',
+  origin: 'https://storage.googleapis.com/',
 })); // fix bug "Acess to fetch has been block by CORS policy sponse to preflight..."
 
 app.use(express.json()); // make express parse json
