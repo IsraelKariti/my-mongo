@@ -13,3 +13,10 @@ app.use('/', urlRoute);// attach router for every request
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log('server started'));
+process
+  .on('unhandledRejection', (reason, p) => {
+    console.error(reason, 'Unhandled Rejection at Promise', p);
+  })
+  .on('uncaughtException', (err) => {
+    console.error(err, 'Uncaught Exception thrown');
+  });
