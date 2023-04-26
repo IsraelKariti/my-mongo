@@ -10,7 +10,7 @@ function isUrlValid(url) {
 
 let db;
 
-connection
+connection()
   .then((connectedDb) => {
     db = connectedDb;
   })
